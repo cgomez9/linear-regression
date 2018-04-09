@@ -1,16 +1,18 @@
 import sys
 import csv
+import numpy as np
 
-from LinearRegression import LinearRegression
+from linearRegression import LinearRegression
 
-inputFile = sys.argv[1]
-outputFile = sys.argv[2]
-features = []
+inputFile = 'input2.csv'#sys.argv[1]
+outputFile = 'output.csv'#sys.argv[2]
+examples = []
 
-with open(inputFile, 'r') as csvfile:
-    spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-    for row in spamreader:
-        features += row
+#with open(inputFile, 'r') as csvfile:
+    #spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+    #for row in spamreader:
+        #examples += row
 
 regression = LinearRegression(outputFile)
-regression.train(features)
+examples = np.loadtxt ( inputFile, delimiter= ',' , skiprows=1)
+regression.train(examples)
