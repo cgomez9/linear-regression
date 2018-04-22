@@ -4,15 +4,21 @@ import numpy as np
 
 from linearRegression import LinearRegression
 
-inputFile = 'input2.csv'#sys.argv[1]
-outputFile = 'output.csv'#sys.argv[2]
+inputFile = 'input2.csv'
+outputFile = 'output.csv'
 examples = []
 
-#with open(inputFile, 'r') as csvfile:
-    #spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-    #for row in spamreader:
-        #examples += row
+learningRates = [0.5]
 
-regression = LinearRegression(outputFile)
-examples = np.loadtxt ( inputFile, delimiter= ',' , skiprows=1)
-regression.train(examples)
+with open(outputFile, 'w') as csvfile:
+    spamwriter = csv.writer(csvfile, lineterminator='\n', delimiter=',')
+    for learningRate in learningRates:
+        print("Parar learning rate: ",learningRate)
+        print("")
+        regression = LinearRegression(learningRate=learningRate, writer=spamwriter)
+        examples = np.loadtxt ( inputFile, delimiter= ',' , skiprows=1)
+        regression.train(100,examples)
+        print("")
+    #regression = LinearRegression(learningRate=0.5, writer=spamwriter)
+    #examples = np.loadtxt ( inputFile, delimiter= ',' , skiprows=1)
+    #regression.train(10,examples)
